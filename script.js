@@ -124,7 +124,7 @@ const submitBtn = document.getElementById("submit");
 const resultEl = document.getElementById("result");
 const cardsEl = document.getElementById("cards");
 const restartBtn = document.getElementById("restart");
-const TOTAL = 4;
+const TOTAL = 6;   // ← теперь 6 вопросов
 
 optionButtons.forEach(btn => {
   btn.addEventListener("click", () => {
@@ -141,12 +141,19 @@ submitBtn.addEventListener("click", () => {
   const scored = recommendations.map(item => {
     let score = 0;
     for (const key in answers) {
-      if (item.tags[key] === answers[key]) score++;
+      if (key === "type") {
+        // фильтр по типу — либо совпал, либо «без разницы»
+        if (answers.type === "any" || item.type === answers.type) score += 2;
+      } else if (item.tags[key] === answers[key]) {
+        score += 1;
+      }
     }
     return { ...item, score };
   });
 
   scored.sort((a, b) => b.score - a.score);
+
+  // Топ-3 с ненулевым счётом
   let top = scored.filter(i => i.score > 0).slice(0, 3);
   if (!top.length) top = scored.slice(0, 3);
 
@@ -157,7 +164,7 @@ submitBtn.addEventListener("click", () => {
     card.innerHTML = `
       <h3>${item.type === "movie" ? "🎥" : "📚"} ${item.title}</h3>
       <p>${item.desc}</p>
-      <div class="meta">Совпадение: ${item.score}/${TOTAL}</div>
+      <div class="meta">Совпадение: ${item.score}/${TOTAL + 1}</div>
     `;
     cardsEl.appendChild(card);
   });
