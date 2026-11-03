@@ -293,3 +293,90 @@ main {
   color: var(--text-dim);
   line-height: 1.5;
 }
+/* ─── Плавающий док ─── */
+.dock {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 28px;
+  z-index: 200;
+  /* Liquid glass */
+  background: rgba(20, 42, 82, 0.45);
+  backdrop-filter: blur(30px) saturate(1.8);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  /* Плавное появление */
+  animation: dockIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes dockIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(30px) scale(0.9); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+/* Внутренний блик «стекла» */
+.dock::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+/* Кнопки в доке */
+.dock .tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 20px;
+  background: transparent;
+  color: rgba(232, 238, 247, 0.65);
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.dock .tab span {
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  transition: opacity 0.3s;
+}
+.dock .tab:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px) scale(1.05);
+}
+.dock .tab:active {
+  transform: translateY(-2px) scale(0.95);
+}
+.dock .tab.active {
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    rgba(74, 144, 226, 0.9),
+    rgba(91, 163, 245, 0.9)
+  );
+  box-shadow:
+    0 4px 16px rgba(74, 144, 226, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px) scale(1.03);
+}
