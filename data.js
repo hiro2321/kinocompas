@@ -25,7 +25,6 @@ const news = [
     text: "В список вошли авторы из Японии, Нигерии и Норвегии."
   }
 ];
-
 /* ─── Рекомендации ─── */
 const recommendations = [
   /* 🎥 ФИЛЬМЫ */
@@ -134,7 +133,6 @@ const recommendations = [
     tags: { energy: "tired", mood: "sad", goal: "think", length: "long", company: "alone" },
     desc: "Двое одиноких людей встречаются в Токио. Тихое и красивое кино."
   },
-
   /* 📚 КНИГИ */
   {
     title: "Хоббит", type: "book",
