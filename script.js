@@ -1,10 +1,35 @@
-/* ─── вкладки ─── */
-document.querySelectorAll(".tab").forEach(tab => {
+/* ─── ВКЛАДКИ ─── */
+const tabs = document.querySelectorAll(".tab");
+const sections = document.querySelectorAll(".section");
+tabs.forEach(tab => {
   tab.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    if (tab.classList.contains("active")) return;
+    tabs.forEach(t => t.classList.remove("active"));
     tab.classList.add("active");
-    document.getElementById(tab.dataset.tab).classList.add("active");
+    const target = document.getElementById(tab.dataset.tab);
+    sections.forEach(s => {
+      if (s.classList.contains("active")) {
+        s.style.opacity = "0";
+        s.style.transform = "translateY(10px)";
+        setTimeout(() => {
+          s.classList.remove("active");
+          s.style.opacity = "";
+          s.style.transform = "";
+        }, 200);
+      }
+    });
+    setTimeout(() => {
+      target.classList.add("active");
+      target.style.opacity = "0";
+      target.style.transform = "translateY(20px)";
+      void target.offsetWidth;
+      target.style.transition = "opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)";
+      target.style.opacity = "1";
+      target.style.transform = "translateY(0)";
+      if (tab.dataset.tab === "map" && typeof map !== "undefined") {
+        setTimeout(() => map.invalidateSize(), 100);
+      }
+    }, 180);
   });
 });
 /* ─── карта ─── */
