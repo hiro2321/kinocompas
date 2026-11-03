@@ -1,4 +1,4 @@
-/* ─── ВКЛАДКИ ─── */
+/* ─── вкладки ─── */
 document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
@@ -7,9 +7,8 @@ document.querySelectorAll(".tab").forEach(tab => {
     document.getElementById(tab.dataset.tab).classList.add("active");
   });
 });
-
-/* ─── КАРТА ─── */
-const map = L.map('map-container', {
+/* ─── карта ─── */
+const map = L.map("map-container", {
   minZoom: 2,
   maxZoom: 18,
   maxBounds: [
@@ -20,21 +19,11 @@ const map = L.map('map-container', {
   worldCopyJump: false,
   zoomControl: true
 }).setView([48, 20], 3);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap',
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: "© OpenStreetMap",
   maxZoom: 18,
-  noWrap: true   // ← важно! не повторять карту по горизонтали
+  noWrap: true
 }).addTo(map);
-
-// ...дальше массив places и forEach без изменений
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap',
-  maxZoom: 18
-}).addTo(map);
-
-// Точки — фильмы и места съёмок
 const places = [
   {
     coords: [59.9311, 30.3609],
@@ -42,7 +31,7 @@ const places = [
     info: "Санкт-Петербург — город, где происходит действие фильма Алексея Балабанова."
   },
   {
-    coords: [40.7128, -74.0060],
+    coords: [40.7128, -74.006],
     title: "🦸 «Мстители»",
     info: "Нью-Йорк — финальная битва с Локи и читаури. Также тут находится башня Мстителей."
   },
@@ -52,7 +41,7 @@ const places = [
     info: "Марсель, Франция — место действия культовой комедии Люка Бессона."
   },
   {
-    coords: [51.7520, -1.2577],
+    coords: [51.752, -1.2577],
     title: "🏰 «Гарри Поттер»",
     info: "Оксфорд — здесь снимали сцены Хогвартса."
   },
@@ -97,14 +86,12 @@ const places = [
     info: "Дубай, ОАЭ — знаменитая сцена на Бурдж-Халифе."
   }
 ];
-
 places.forEach(place => {
   L.marker(place.coords)
     .addTo(map)
     .bindPopup(`<b>${place.title}</b><br>${place.info}`);
 });
-
-/* ─── НОВОСТИ ─── */
+/* ─── новости ─── */
 const newsList = document.getElementById("news-list");
 news.forEach(n => {
   const card = document.createElement("div");
@@ -116,33 +103,36 @@ news.forEach(n => {
   `;
   newsList.appendChild(card);
 });
-
-/* ─── ОПРОС ─── */
+/* ─── подбор ─── */
 const answers = {};
 const optionButtons = document.querySelectorAll(".option");
 const submitBtn = document.getElementById("submit");
 const resultEl = document.getElementById("result");
 const cardsEl = document.getElementById("cards");
 const restartBtn = document.getElementById("restart");
-const TOTAL = 6;   // ← теперь 6 вопросов
-
+const TOTAL = 6;
+function getMaxScore() {
+  return Object.keys(answers).reduce(
+    (sum, key) => sum + (key === "type" ? 2 : 1),
+    0
+  );
+}
 optionButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     const q = btn.dataset.q;
-    document.querySelectorAll(`.option[data-q="${q}"]`)
+    document
+      .querySelectorAll(`.option[data-q="${q}"]`)
       .forEach(b => b.classList.remove("selected"));
     btn.classList.add("selected");
     answers[q] = btn.dataset.v;
     if (Object.keys(answers).length === TOTAL) submitBtn.disabled = false;
   });
 });
-
 submitBtn.addEventListener("click", () => {
   const scored = recommendations.map(item => {
     let score = 0;
     for (const key in answers) {
       if (key === "type") {
-        // фильтр по типу — либо совпал, либо «без разницы»
         if (answers.type === "any" || item.type === answers.type) score += 2;
       } else if (item.tags[key] === answers[key]) {
         score += 1;
@@ -150,13 +140,10 @@ submitBtn.addEventListener("click", () => {
     }
     return { ...item, score };
   });
-
   scored.sort((a, b) => b.score - a.score);
-
-  // Топ-3 с ненулевым счётом
   let top = scored.filter(i => i.score > 0).slice(0, 3);
   if (!top.length) top = scored.slice(0, 3);
-
+  const maxScore = getMaxScore();
   cardsEl.innerHTML = "";
   top.forEach(item => {
     const card = document.createElement("div");
@@ -164,15 +151,13 @@ submitBtn.addEventListener("click", () => {
     card.innerHTML = `
       <h3>${item.type === "movie" ? "🎥" : "📚"} ${item.title}</h3>
       <p>${item.desc}</p>
-      <div class="meta">Совпадение: ${item.score}/${TOTAL + 1}</div>
+      <div class="meta">Совпадение: ${item.score}/${maxScore}</div>
     `;
     cardsEl.appendChild(card);
   });
-
   resultEl.classList.remove("hidden");
   submitBtn.classList.add("hidden");
 });
-
 restartBtn.addEventListener("click", () => {
   Object.keys(answers).forEach(k => delete answers[k]);
   document.querySelectorAll(".option").forEach(b => b.classList.remove("selected"));
@@ -180,8 +165,7 @@ restartBtn.addEventListener("click", () => {
   submitBtn.classList.remove("hidden");
   resultEl.classList.add("hidden");
 });
-
-/* ─── ИСТОРИЯ КИНО ─── */
+/* ─── история ─── */
 const timeline = document.getElementById("timeline");
 history.forEach(item => {
   const el = document.createElement("div");
