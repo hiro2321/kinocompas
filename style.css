@@ -23,8 +23,10 @@ body {
 }
 /* Универсальный ховер */
 .fx-btn {
-  transition: transform 0.25s ease, box-shadow 0.25s ease,
-              background 0.25s ease, border-color 0.25s ease;
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease,
+    background 0.25s ease;
   cursor: pointer;
 }
 .fx-btn:hover {
@@ -32,7 +34,7 @@ body {
   box-shadow: 0 0 20px var(--glow), 0 0 40px rgba(74, 144, 226, 0.25);
 }
 .fx-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.95);
 }
 /* Шапка */
 .topbar {
@@ -63,20 +65,14 @@ main {
 }
 .section {
   display: none;
-  animation: fadeIn 0.4s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .section.active {
   display: block;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  opacity: 1;
+  transform: translateY(0);
 }
 .section h2 {
   font-size: 26px;
