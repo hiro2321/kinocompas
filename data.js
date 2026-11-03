@@ -27,7 +27,7 @@ const news = [
 ];
 /* ─── Реком-ции ─── */
 const recommendations = [
-  /* 🎥 ФИЛЬМЫ */
+  /* фильмы */
   {
     title: "Душа", type: "movie",
     tags: { energy: "tired", mood: "calm", goal: "distract", length: "short", company: "alone" },
@@ -133,7 +133,7 @@ const recommendations = [
     tags: { energy: "tired", mood: "sad", goal: "think", length: "long", company: "alone" },
     desc: "Двое одиноких людей встречаются в Токио. Тихое и красивое кино."
   },
-  /* 📚 КНИГИ */
+  /* книги */
   {
     title: "Хоббит", type: "book",
     tags: { energy: "energetic", mood: "happy", goal: "adventure", length: "long", company: "alone" },
