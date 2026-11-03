@@ -10,7 +10,6 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
 </head>
 <body>
-
   <header class="topbar">
     <h1 class="logo fx-btn">🧭 Ориентир</h1>
     <nav class="tabs">
@@ -20,42 +19,34 @@
       <button class="tab fx-btn" data-tab="quiz">🎬 Подбор</button>
     </nav>
   </header>
-
   <main>
-    <!-- КАРТА -->
+    <!-- карта -->
     <section id="map" class="section active">
-  <h2>Карта мест из фильмов и книг</h2>
-  <div id="map-container"></div>
-</section>
-      </div>
+      <h2>Карта мест из фильмов и книг</h2>
+      <div id="map-container"></div>
       <div id="pin-info" class="info-box">
-        Нажми на точку, чтобы узнать подробнее
+        Нажми на точку, чтобы узнать подробнее 👆
       </div>
     </section>
-
-    <!-- НОВОСТИ -->
+    <!-- новости -->
     <section id="news" class="section">
       <h2>Новости кино и книг</h2>
       <div id="news-list" class="news-grid"></div>
     </section>
-
-    <!-- ИСТОРИЯ КИНО -->
+    <!-- история -->
 <section id="history" class="section">
   <h2>История кино — кратко</h2>
   <div id="timeline" class="timeline"></div>
 </section>
-
-    <!-- ОПРОС -->
+    <!-- опрос -->
 <section id="quiz" class="section">
   <h2>Подбор по настроению</h2>
-
   <div class="question">
     <p>1. Как ты себя чувствуешь?</p>
     <button class="option fx-btn" data-q="energy" data-v="tired">Устал(а)</button>
     <button class="option fx-btn" data-q="energy" data-v="normal">Нормально</button>
     <button class="option fx-btn" data-q="energy" data-v="energetic">Полон(а) сил</button>
   </div>
-
   <div class="question">
     <p>2. Какое настроение?</p>
     <button class="option fx-btn" data-q="mood" data-v="sad">Грустное</button>
@@ -63,35 +54,29 @@
     <button class="option fx-btn" data-q="mood" data-v="anxious">Тревожное</button>
     <button class="option fx-btn" data-q="mood" data-v="calm">Спокойное</button>
   </div>
-
   <div class="question">
     <p>3. Чего хочешь?</p>
     <button class="option fx-btn" data-q="goal" data-v="distract">Отвлечься</button>
     <button class="option fx-btn" data-q="goal" data-v="think">Подумать</button>
     <button class="option fx-btn" data-q="goal" data-v="adventure">Приключений</button>
   </div>
-
   <div class="question">
     <p>4. Сколько сил?</p>
     <button class="option fx-btn" data-q="length" data-v="short">До 1.5 часа</button>
     <button class="option fx-btn" data-q="length" data-v="long">Готов(а) на долгое</button>
   </div>
-
   <div class="question">
     <p>5. Один(а) или с кем-то?</p>
     <button class="option fx-btn" data-q="company" data-v="alone">Один(а)</button>
     <button class="option fx-btn" data-q="company" data-v="together">С кем-то</button>
   </div>
-
   <div class="question">
     <p>6. Что предпочитаешь?</p>
     <button class="option fx-btn" data-q="type" data-v="movie">Фильм</button>
     <button class="option fx-btn" data-q="type" data-v="book">Книга</button>
     <button class="option fx-btn" data-q="type" data-v="any">Без разницы</button>
   </div>
-
   <button id="submit" class="fx-btn primary" disabled>Подобрать</button>
-
   <div id="result" class="hidden">
     <h3>Тебе подойдёт:</h3>
     <div id="cards"></div>
@@ -99,7 +84,6 @@
   </div>
 </section>
   </main>
-
   <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
